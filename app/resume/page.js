@@ -115,13 +115,13 @@ export default function ResumePage() {
                   
                   <div className="border-l-4 border-primary-500 pl-6">
                     <h3 className="text-xl font-semibold text-white">AI Research Associate</h3>
-                    <p className="text-primary-400 font-medium">Zoho Corporation • 2024 - Present</p>
+                    <p className="text-primary-400 font-medium">Zoho Corporation • May 2025 - June 2025</p>
                     <p className="text-gray-300 mt-3">Developed SarvX and Co-Clone AI tools</p>
                   </div>
 
                   <div className="border-l-4 border-secondary-500 pl-6">
                     <h3 className="text-xl font-semibold text-white">Data Science Intern</h3>
-                    <p className="text-secondary-400 font-medium">Infosys Springboard • 2024</p>
+                    <p className="text-secondary-400 font-medium">Infosys Springboard • Oct 2024 - Dec 2024</p>
                     <p className="text-gray-300 mt-3">Created HR Analytics Dashboard</p>
                   </div>
                 </div>

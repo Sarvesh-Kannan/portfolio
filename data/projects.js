@@ -176,7 +176,7 @@ export const experiences = [
   {
     title: "AI Research Associate",
     company: "Zoho Corporation",
-    period: "2024 - Present",
+    period: "May 2025 - June 2025",
     description: "Developing RAG-based AI assistants and code intelligence tools",
     achievements: [
       "Built SarvX - Privacy-first code assistant with local LLMs",
@@ -187,7 +187,7 @@ export const experiences = [
   {
     title: "Data Science Intern",
     company: "Infosys Springboard",
-    period: "2024",
+    period: "Oct 2024 - Dec 2024",
     description: "Strategic HR Analytics and Business Intelligence",
     achievements: [
       "Created comprehensive HR analytics dashboard",
