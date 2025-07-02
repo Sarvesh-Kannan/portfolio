@@ -2,10 +2,12 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useRouter } from 'next/navigation'
 import { Building2, Calendar, MapPin, Trophy, Target, Sparkles } from 'lucide-react'
 import { experiences, achievements } from '../../data/projects'
 
 const Experience = () => {
+  const router = useRouter()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -211,7 +213,7 @@ const Experience = () => {
               Want to be part of my next chapter?
             </p>
             <motion.button
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => router.push('/contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary text-lg px-8 py-4 neon-blue"

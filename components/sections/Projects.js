@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useRouter } from 'next/navigation'
 import { Github, ExternalLink, Star, GitBranch, Users, Calendar } from 'lucide-react'
 import { projects } from '../../data/projects'
 
 const Projects = () => {
+  const router = useRouter()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -331,7 +333,7 @@ const Projects = () => {
               Interested in collaborating on a project?
             </p>
             <motion.button
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => router.push('/contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary text-lg px-8 py-4 neon-purple"

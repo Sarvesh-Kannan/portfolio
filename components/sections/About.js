@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useRouter } from 'next/navigation'
 import { personalInfo } from '../../data/projects'
 
 const About = () => {
+  const router = useRouter()
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -203,7 +205,7 @@ const About = () => {
               Ready to build something amazing together?
             </p>
             <motion.button
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => router.push('/contact')}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="btn-primary text-lg px-8 py-4 neon-blue"
