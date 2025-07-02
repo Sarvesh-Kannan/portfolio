@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import Image from 'next/image'
 import { personalInfo } from '../../data/projects'
 
 const About = () => {
@@ -115,26 +114,8 @@ const About = () => {
               </div>
             </motion.div>
 
-            {/* Image Gallery */}
+            {/* Stats Card */}
             <motion.div variants={itemVariants} className="space-y-8">
-              {/* Main Image */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="relative cursor-glow"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur-lg opacity-20"></div>
-                <div className="relative h-96 rounded-2xl overflow-hidden border border-primary-500/30">
-                  <Image
-                    src="/assets/port1.jpg"
-                    alt="Sarvesh Kannan - Professional"
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
-              </motion.div>
-
-              {/* Stats Card */}
               <div className="glass rounded-xl p-8 space-y-6">
                 <h4 className="text-2xl font-bold text-center text-gradient mb-6">Quick Stats</h4>
                 <div className="grid grid-cols-1 gap-4">
@@ -147,7 +128,7 @@ const About = () => {
                     <div className="text-sm text-gray-400">Years Trading</div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 rounded-lg border border-primary-500/20">
-                    <div className="text-3xl font-bold text-gradient">19</div>
+                    <div className="text-3xl font-bold text-gradient">20</div>
                     <div className="text-sm text-gray-400">Years Old</div>
                   </div>
                 </div>
