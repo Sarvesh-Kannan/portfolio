@@ -14,8 +14,17 @@ const Hero = () => {
     document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const handleResumeDownload = () => {
+  const handleResumeDownload = async () => {
     try {
+      // Check if the resume file exists
+      const response = await fetch('/assets/Sarvesh_Resume.pdf', { method: 'HEAD' })
+      
+      if (!response.ok) {
+        // If file doesn't exist, show user-friendly message
+        alert('Resume is currently being updated. Please check back soon or contact me directly at sarveshkannan30@gmail.com')
+        return
+      }
+      
       // Create a temporary link element
       const link = document.createElement('a')
       link.href = '/assets/Sarvesh_Resume.pdf'
@@ -31,8 +40,8 @@ const Hero = () => {
       console.log('Resume downloaded successfully')
     } catch (error) {
       console.error('Error downloading resume:', error)
-      // Fallback: open in new tab
-      window.open('/assets/Sarvesh_Resume.pdf', '_blank')
+      // Show user-friendly error message
+      alert('Resume download is temporarily unavailable. Please contact me at sarveshkannan30@gmail.com for a copy.')
     }
   }
 
