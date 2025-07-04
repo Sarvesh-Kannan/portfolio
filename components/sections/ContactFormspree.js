@@ -5,10 +5,8 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, FileText, Coffee } from 'lucide-react'
 import { personalInfo } from '../../data/projects'
-import emailjs from '@emailjs/browser'
-import { emailjsConfig } from '../../lib/emailjs-config'
 
-const Contact = () => {
+const ContactFormspree = () => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -89,23 +87,26 @@ const Contact = () => {
     setSubmitStatus(null)
     
     try {
-      // EmailJS configuration
-      const { serviceId, templateId, publicKey } = emailjsConfig
+      // Formspree endpoint - Replace YOUR_FORM_ID with your actual Formspree form ID
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
+        })
+      })
       
-      // Prepare template parameters
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_email: 'sarveshkannan30@gmail.com'
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', subject: '', message: '' })
+      } else {
+        setSubmitStatus('error')
       }
-      
-      // Send email using EmailJS
-      await emailjs.send(serviceId, templateId, templateParams, publicKey)
-      
-      setSubmitStatus('success')
-      setFormData({ name: '', email: '', subject: '', message: '' })
       
     } catch (error) {
       console.error('Failed to send message:', error)
@@ -199,7 +200,7 @@ const Contact = () => {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <motion.div variants={itemVariants} className="space-y-8">
               <div className="glass rounded-2xl p-8">
@@ -225,6 +226,7 @@ const Contact = () => {
                         placeholder="John Doe"
                       />
                     </div>
+                    
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                         Your Email
@@ -439,4 +441,4 @@ const Contact = () => {
   )
 }
 
-export default Contact 
+export default ContactFormspree 
