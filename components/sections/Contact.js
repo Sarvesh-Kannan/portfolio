@@ -21,6 +21,28 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const handleResumeDownload = () => {
+    try {
+      // Create a temporary link element
+      const link = document.createElement('a')
+      link.href = '/assets/Sarvesh_Resume.pdf'
+      link.download = 'Sarvesh_Kannan_Resume.pdf'
+      link.target = '_blank'
+      
+      // Trigger download
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      
+      // Optional: Track download (for analytics)
+      console.log('Resume downloaded successfully')
+    } catch (error) {
+      console.error('Error downloading resume:', error)
+      // Fallback: open in new tab
+      window.open('/assets/Sarvesh_Resume.pdf', '_blank')
+    }
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -91,28 +113,32 @@ const Contact = () => {
       href: personalInfo.github,
       icon: Github,
       color: 'hover:text-gray-300',
-      description: 'Check out my code'
+      description: 'Check out my code',
+      isExternal: true
     },
     {
       name: 'LinkedIn',
       href: personalInfo.linkedin,
       icon: Linkedin,
       color: 'hover:text-blue-400',
-      description: 'Connect professionally'
+      description: 'Connect professionally',
+      isExternal: true
     },
     {
       name: 'Resume',
-      href: '/assets/Sarvesh_Resume.pdf',
+      onClick: handleResumeDownload,
       icon: FileText,
       color: 'hover:text-purple-400',
-      description: 'Download my resume'
+      description: 'Download my resume',
+      isExternal: false
     },
     {
       name: 'Email',
       href: `mailto:${personalInfo.email}`,
       icon: Mail,
       color: 'hover:text-green-400',
-      description: 'Send me an email'
+      description: 'Send me an email',
+      isExternal: false
     }
   ]
 
@@ -276,11 +302,28 @@ const Contact = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {socialLinks.map((link) => {
                     const Icon = link.icon
+                    
+                    if (link.onClick) {
+                      return (
+                        <motion.button
+                          key={link.name}
+                          onClick={link.onClick}
+                          whileHover={{ scale: 1.05, y: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={`flex flex-col items-center p-4 bg-gray-800/50 border border-gray-700 rounded-lg text-gray-400 ${link.color} transition-all duration-200 hover:border-primary-500/50 cursor-glow`}
+                        >
+                          <Icon size={24} className="mb-2" />
+                          <span className="text-sm font-medium text-white">{link.name}</span>
+                          <span className="text-xs text-gray-500 text-center">{link.description}</span>
+                        </motion.button>
+                      )
+                    }
+                    
                     return (
                       <motion.a
                         key={link.name}
                         href={link.href}
-                        target={link.name === 'Email' ? '_self' : '_blank'}
+                        target={link.isExternal ? '_blank' : '_self'}
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05, y: -5 }}
                         whileTap={{ scale: 0.95 }}

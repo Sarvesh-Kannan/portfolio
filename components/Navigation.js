@@ -16,6 +16,28 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleResumeDownload = () => {
+    try {
+      // Create a temporary link element
+      const link = document.createElement('a')
+      link.href = '/assets/Sarvesh_Resume.pdf'
+      link.download = 'Sarvesh_Kannan_Resume.pdf'
+      link.target = '_blank'
+      
+      // Trigger download
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      
+      // Optional: Track download (for analytics)
+      console.log('Resume downloaded successfully')
+    } catch (error) {
+      console.error('Error downloading resume:', error)
+      // Fallback: open in new tab
+      window.open('/assets/Sarvesh_Resume.pdf', '_blank')
+    }
+  }
+
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Projects', href: '/projects' },
@@ -31,25 +53,29 @@ const Navigation = () => {
       name: 'GitHub', 
       href: 'https://github.com/Sarvesh-Kannan', 
       icon: Github,
-      color: 'hover:text-gray-300'
+      color: 'hover:text-gray-300',
+      isExternal: true
     },
     { 
       name: 'LinkedIn', 
       href: 'https://www.linkedin.com/in/sarvesh-kannan/', 
       icon: Linkedin,
-      color: 'hover:text-blue-400'
+      color: 'hover:text-blue-400',
+      isExternal: true
     },
     { 
       name: 'Email', 
       href: 'mailto:sarveshkannan30@gmail.com', 
       icon: Mail,
-      color: 'hover:text-green-400'
+      color: 'hover:text-green-400',
+      isExternal: false
     },
     { 
       name: 'Resume', 
-      href: '/assets/Sarvesh_Resume.pdf', 
+      onClick: handleResumeDownload, 
       icon: FileText,
-      color: 'hover:text-purple-400'
+      color: 'hover:text-purple-400',
+      isExternal: false
     }
   ]
 
@@ -108,11 +134,26 @@ const Navigation = () => {
           <div className="hidden md:flex items-center space-x-4">
             {socialLinks.map((link) => {
               const Icon = link.icon
+              
+              if (link.onClick) {
+                return (
+                  <motion.button
+                    key={link.name}
+                    onClick={link.onClick}
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    className={`text-gray-400 ${link.color} transition-colors duration-200 cursor-glow`}
+                  >
+                    <Icon size={20} />
+                  </motion.button>
+                )
+              }
+              
               return (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  target={link.name === 'Email' ? '_self' : '_blank'}
+                  target={link.isExternal ? '_blank' : '_self'}
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.9 }}
@@ -162,11 +203,26 @@ const Navigation = () => {
               <div className="flex justify-center space-x-6 pt-4 pb-2">
                 {socialLinks.map((link) => {
                   const Icon = link.icon
+                  
+                  if (link.onClick) {
+                    return (
+                      <motion.button
+                        key={link.name}
+                        onClick={link.onClick}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
+                        className={`text-gray-400 ${link.color} transition-colors duration-200`}
+                      >
+                        <Icon size={24} />
+                      </motion.button>
+                    )
+                  }
+                  
                   return (
                     <motion.a
                       key={link.name}
                       href={link.href}
-                      target={link.name === 'Email' ? '_self' : '_blank'}
+                      target={link.isExternal ? '_blank' : '_self'}
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}

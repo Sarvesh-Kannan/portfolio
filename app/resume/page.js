@@ -19,6 +19,28 @@ export default function ResumePage() {
     }
   }, [])
 
+  const handleResumeDownload = () => {
+    try {
+      // Create a temporary link element
+      const link = document.createElement('a')
+      link.href = '/assets/Sarvesh_Resume.pdf'
+      link.download = 'Sarvesh_Kannan_Resume.pdf'
+      link.target = '_blank'
+      
+      // Trigger download
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      
+      // Optional: Track download (for analytics)
+      console.log('Resume downloaded successfully')
+    } catch (error) {
+      console.error('Error downloading resume:', error)
+      // Fallback: open in new tab
+      window.open('/assets/Sarvesh_Resume.pdf', '_blank')
+    }
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -68,9 +90,7 @@ export default function ResumePage() {
               </p>
               
               <motion.a
-                href="/assets/Sarvesh_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={handleResumeDownload}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary inline-flex items-center space-x-2 neon-blue"
